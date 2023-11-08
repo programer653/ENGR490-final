@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/AppSettingButton"
+        android:layout_width="176dp"
+        android:layout_height="59dp"
+        android:text="App Setting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.755" />
+
+    <Button
+        android:id="@+id/CaneBatteryButton"
+        android:layout_width="176dp"
+        android:layout_height="59dp"
+        android:text="Battery of cane"
+        app:layout_constraintBottom_toTopOf="@+id/AppSettingButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.944" />
+
+    <Button
+        android:id="@+id/FindCaneButton"
+        android:layout_width="176dp"
+        android:layout_height="59dp"
+        android:text="Find cane"
+        app:layout_constraintBottom_toTopOf="@+id/CaneBatteryButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.945" />
+
+    <Button
+        android:id="@+id/GpsNavigationButton"
+        android:layout_width="176dp"
+        android:layout_height="59dp"
+        android:text="GPS navigation"
+        app:layout_constraintBottom_toTopOf="@+id/FindCaneButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87" />
+
+    <Button
+        android:id="@+id/Vibrationbutton"
+        android:layout_width="176dp"
+        android:layout_height="59dp"
+        android:text="Vibration Setting"
+        app:layout_constraintBottom_toTopOf="@+id/GpsNavigationButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
