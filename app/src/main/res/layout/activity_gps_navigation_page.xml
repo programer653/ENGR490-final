@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BatteryCanePage">
+    tools:context=".GpsNavigationPage">
 
-    <TextView
-        android:id="@+id/PercentagetextView"
-        android:layout_width="117dp"
-        android:layout_height="28dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="187dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
