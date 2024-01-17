@@ -27,8 +27,13 @@ public class AppSettingsPage extends AppCompatActivity {
         Switch switch2 = findViewById(R.id.switch2);
         Switch switch3 = findViewById(R.id.switch3);
         EditText FonteditText = findViewById(R.id.FontEditText);
-        //final ConstraintLayout relativeLayout;
-        ConstraintLayout Settings = findViewById(R.id.settings);
+        ConstraintLayout settingsXML = (ConstraintLayout) findViewById(R.id.settingsXML);
+        //ConstraintLayout gpsXML = (ConstraintLayout) findViewById(R.id.gpsXML);
+        //ConstraintLayout loginXML = (ConstraintLayout) findViewById(R.id.loginXML);
+        //ConstraintLayout settingsXML = (ConstraintLayout) findViewById(R.id.settingsXML);
+
+        SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(getApplicationContext());
+
 
 
         Boolean switchstate = switch1.isChecked();
@@ -49,23 +54,21 @@ public class AppSettingsPage extends AppCompatActivity {
         });
 
 
-        ConstraintLayout main = (ConstraintLayout) findViewById(R.id.settings);
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (switch1.isChecked())
                 {
-                    main.setBackgroundResource(R.color.blue);
+                    settingsXML.setBackgroundResource(R.color.blue);
 
 
                 } else if (switch2.isChecked())
                 {
-                    //setActivityBackgroundColor(R.color.black);
-                    main.setBackgroundColor(Color.BLACK);
+                    settingsXML.setBackgroundColor(Color.BLACK);
 
                 } else if (switch3.isChecked()) {
 
-                    main.setBackgroundResource(R.color.orange);
+                    settingsXML.setBackgroundResource(R.color.orange);
 
                 }
 

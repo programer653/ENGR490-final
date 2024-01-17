@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vibrationXML"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#94B6EF"
     tools:context=".VibrationSettingsPage">
 
     <Switch
-        android:id="@+id/OnSwitch"
+        android:id="@+id/VibrationOnSwitch"
         android:layout_width="231dp"
         android:layout_height="95dp"
         android:text="ON/OFF"
