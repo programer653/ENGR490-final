@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void OpenGpsPage()
     {
-        Intent intent = new Intent(this, GpsNavigationPage.class);
+        Intent intent = new Intent(this, GpsNavigationPage2.class);
         startActivity(intent);
     }
 

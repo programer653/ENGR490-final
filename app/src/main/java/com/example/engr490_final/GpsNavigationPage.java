@@ -16,7 +16,7 @@ public class GpsNavigationPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps_navigation_page);
 
-        ConstraintLayout gpsXML = (ConstraintLayout) findViewById(R.id.gpsXML);
+
 
         Backbutton = findViewById(R.id.Backbutton);
 

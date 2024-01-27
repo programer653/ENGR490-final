@@ -11,5 +11,5 @@
     <string name="login_failed">"Login failed"</string>
 
     <string name="Profile_SharedPreferences"> profileSharedPreferences</string>
-    <string name ="Settings_SharedPreferences">SettingsPreferences</string>
+    <string name="Settings_SharedPreferences">SettingsPreferences</string>
 </resources>
