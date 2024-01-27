@@ -1,50 +1,64 @@
 package com.example.engr490_final;
 
+import static android.widget.Toast.LENGTH_LONG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class AppSettingsPage extends AppCompatActivity {
+
+    ConstraintLayout settingsXML ;
+    int selectedColor = R.color.blue;
+    int Colortext = R.color.black;
+
+    Switch switch1;
+    Switch switch2 ;
+    Switch switch3 ;
+
+    Button Backbutton ;
+    Button buttonSubmit;
+    EditText FonteditText ;
+
+    TextView textview2;
+     SharedPreferences sp;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_settings_page);
 
+        settingsXML = (ConstraintLayout) findViewById(R.id.settingsXML);
+        switch1  = findViewById(R.id.switch1);
+        switch2 = findViewById(R.id.switch2);
+        switch3 = findViewById(R.id.switch3);
+        Backbutton = findViewById(R.id.Backbutton);
+        buttonSubmit  = findViewById(R.id.buttonSubmit);
+        FonteditText = findViewById(R.id.FontEditText);
+        textview2 = findViewById(R.id.textView2);
 
-        //constraintLayout = findViewById(R.id.constraint_layout);
-        Button Backbutton = findViewById(R.id.Backbutton);
-        Button buttonSubmit = findViewById(R.id.buttonSubmit);
-        Switch switch1 = findViewById(R.id.switch1);
-        Switch switch2 = findViewById(R.id.switch2);
-        Switch switch3 = findViewById(R.id.switch3);
-        EditText FonteditText = findViewById(R.id.FontEditText);
-        ConstraintLayout settingsXML = (ConstraintLayout) findViewById(R.id.settingsXML);
-        //ConstraintLayout gpsXML = (ConstraintLayout) findViewById(R.id.gpsXML);
-        //ConstraintLayout loginXML = (ConstraintLayout) findViewById(R.id.loginXML);
-        //ConstraintLayout settingsXML = (ConstraintLayout) findViewById(R.id.settingsXML);
+        // Initialize SharedPreference
+        sp = getSharedPreferences("ColorPref", Context.MODE_PRIVATE);
 
-        SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(getApplicationContext());
-
-
-
-        Boolean switchstate = switch1.isChecked();
-        switch1.setChecked(true);
-
-        Boolean switchstate2 = switch2.isChecked();
-        switch2.setChecked(false);
-
-        Boolean switchstate3 = switch3.isChecked();
-        switch3.setChecked(false);
-
+        //applySelectedColor(selectedColor);
 
         Backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,31 +67,70 @@ public class AppSettingsPage extends AppCompatActivity {
             }
         });
 
-
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (switch1.isChecked())
-                {
-                    settingsXML.setBackgroundResource(R.color.blue);
-
-
-                } else if (switch2.isChecked())
-                {
-                    settingsXML.setBackgroundColor(Color.BLACK);
-
-                } else if (switch3.isChecked()) {
-
-                    settingsXML.setBackgroundResource(R.color.orange);
-
-                }
+    }
 
 
 
-            }
-        });
+    public void changeColorButton(View view)
+    {
+         /*selectedColor = R.color.blue;
+         Colortext = R.color.black;*/
+        String fontSizeText = FonteditText.getText().toString().trim();
+        float fontSize = Float.parseFloat(fontSizeText);
 
 
+        if (switch1.isChecked())
+        {
+           selectedColor = R.color.blue;
+           Colortext = R.color.black;
+
+
+
+        } else if (switch2.isChecked())
+        {
+            selectedColor = R.color.orange;
+            Colortext = R.color.black;
+
+
+
+        } else if (switch3.isChecked()) {
+
+            selectedColor = R.color.white;
+            Colortext = R.color.orange;
+        }
+
+        applySelectedColor(selectedColor);
+        Backbutton.setTextSize(fontSize);
+        Backbutton.setTextColor(getColor(Colortext));
+
+        buttonSubmit.setTextSize(fontSize);
+        buttonSubmit.setTextColor(getColor(Colortext));
+
+        switch1.setTextSize(fontSize);
+        switch1.setTextColor(getColor(Colortext));
+
+        switch2.setTextSize(fontSize);
+        switch2.setTextColor(getColor(Colortext));
+
+        switch3.setTextSize(fontSize);
+        switch3.setTextColor(getColor(Colortext));
+
+        textview2.setTextSize(fontSize);
+        textview2.setTextColor(getColor(Colortext));
+
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putInt("selectedColor", selectedColor);
+        editor.putInt("ColorText", Colortext);
+        editor.commit();
+        Toast.makeText(AppSettingsPage.this, "Information Saved.", Toast.LENGTH_LONG).show();
+
+
+
+    }
+    private void applySelectedColor( int colorResId) {
+        // Apply the selected color to the background
+        settingsXML.setBackgroundColor(getColor(colorResId));
     }
 
     public void OpenMainPage()
@@ -86,9 +139,5 @@ public class AppSettingsPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void setActivityBackgroundColor(int color)
-    {
-        View view = this.getWindow().getDecorView();
-        view.setBackgroundColor(color);
-    }
+
 }

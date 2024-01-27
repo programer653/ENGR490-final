@@ -8,6 +8,22 @@
     android:background="#94B6EF"
     tools:context=".VibrationSettingsPage">
 
+    <Button
+        android:id="@+id/Backbutton"
+        android:layout_width="112dp"
+        android:layout_height="62dp"
+        android:backgroundTint="#ABC6F3"
+        android:text="back"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04"
+        app:strokeWidth="3dp" />
+
     <Switch
         android:id="@+id/VibrationOnSwitch"
         android:layout_width="231dp"
