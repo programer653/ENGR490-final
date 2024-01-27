@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
+// add textto speech
+//when you are clicking on one button, premiere fois ca va enoncer le button puis deuxieme fois ca va cliquer dessus
 public class MainActivity extends AppCompatActivity {
     Button AppSettingsButton;
     Button VibrationButton;

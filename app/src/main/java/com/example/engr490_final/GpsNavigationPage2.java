@@ -124,7 +124,7 @@ public class GpsNavigationPage2 extends AppCompatActivity {
     }
 
 
-    // add "your location" for siource location
+    // add "your location" for source location
 
     private void applySelectedColor(int selectedColor, int Colortext, int Colorbutton, float fontSize) {
         // Apply the selected color to the background
