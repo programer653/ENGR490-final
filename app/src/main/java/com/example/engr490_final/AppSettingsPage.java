@@ -26,6 +26,8 @@ public class AppSettingsPage extends AppCompatActivity {
     ConstraintLayout settingsXML ;
     int selectedColor = R.color.blue;
     int Colortext = R.color.black;
+    int Colorbutton = R.color.blue2;
+    float fontSize = 10;
 
     Switch switch1;
     Switch switch2 ;
@@ -58,7 +60,7 @@ public class AppSettingsPage extends AppCompatActivity {
         // Initialize SharedPreference
         sp = getSharedPreferences("ColorPref", Context.MODE_PRIVATE);
 
-        //applySelectedColor(selectedColor);
+        applySelectedColor(selectedColor);
 
         Backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,16 +75,17 @@ public class AppSettingsPage extends AppCompatActivity {
 
     public void changeColorButton(View view)
     {
-         /*selectedColor = R.color.blue;
-         Colortext = R.color.black;*/
+
         String fontSizeText = FonteditText.getText().toString().trim();
-        float fontSize = Float.parseFloat(fontSizeText);
+        fontSize = Float.parseFloat(fontSizeText);
 
 
         if (switch1.isChecked())
         {
            selectedColor = R.color.blue;
            Colortext = R.color.black;
+           Colorbutton = R.color.blue2;
+
 
 
 
@@ -90,6 +93,7 @@ public class AppSettingsPage extends AppCompatActivity {
         {
             selectedColor = R.color.orange;
             Colortext = R.color.black;
+            Colorbutton = R.color.orange2;
 
 
 
@@ -97,14 +101,18 @@ public class AppSettingsPage extends AppCompatActivity {
 
             selectedColor = R.color.white;
             Colortext = R.color.orange;
+            Colorbutton = R.color.white2;
         }
 
         applySelectedColor(selectedColor);
         Backbutton.setTextSize(fontSize);
         Backbutton.setTextColor(getColor(Colortext));
+        Backbutton.setBackgroundColor(getColor(Colorbutton));
 
         buttonSubmit.setTextSize(fontSize);
         buttonSubmit.setTextColor(getColor(Colortext));
+        buttonSubmit.setBackgroundColor(getColor(Colorbutton));
+
 
         switch1.setTextSize(fontSize);
         switch1.setTextColor(getColor(Colortext));
@@ -122,6 +130,8 @@ public class AppSettingsPage extends AppCompatActivity {
 
         editor.putInt("selectedColor", selectedColor);
         editor.putInt("ColorText", Colortext);
+        editor.putInt("Colorbutton", Colorbutton);
+        editor.putFloat("fontSize", fontSize);
         editor.commit();
         Toast.makeText(AppSettingsPage.this, "Information Saved.", Toast.LENGTH_LONG).show();
 
