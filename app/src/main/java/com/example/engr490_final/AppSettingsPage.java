@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AppSettingsPage extends AppCompatActivity {
+import java.util.Locale;
+
+public class AppSettingsPage extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     ConstraintLayout settingsXML ;
     int selectedColor = R.color.blue;
@@ -40,6 +43,9 @@ public class AppSettingsPage extends AppCompatActivity {
     TextView textview2;
      SharedPreferences sp;
 
+    private TextToSpeech textToSpeech;
+    private boolean isSpeaking = false;
+
 
 
 
@@ -48,6 +54,7 @@ public class AppSettingsPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_settings_page);
 
+        textToSpeech = new TextToSpeech(this, this);
         settingsXML = (ConstraintLayout) findViewById(R.id.settingsXML);
         switch1  = findViewById(R.id.switch1);
         switch2 = findViewById(R.id.switch2);
@@ -60,13 +67,24 @@ public class AppSettingsPage extends AppCompatActivity {
         // Initialize SharedPreference
         sp = getSharedPreferences("ColorPref", Context.MODE_PRIVATE);
 
-        applySelectedColor(selectedColor);
+        selectedColor= sp.getInt("selectedColor", R.color.blue);
+        Colortext = sp.getInt("ColorText", R.color.black);
+        Colorbutton = sp.getInt("Colorbutton", R.color.blue2);
+        fontSize = sp.getFloat("fontSize", 10);
+
+        applySelectedColor(selectedColor, Colortext, Colorbutton, fontSize);
 
         Backbutton.setOnClickListener(new View.OnClickListener() {
             // add if font size not chnaged then error
             @Override
             public void onClick(View view) {
-                OpenMainPage();
+                if (!isSpeaking) {
+                    //speakText(AppSettingsButton.getText().toString());
+                    handleButtonClick(Backbutton.getText().toString(), Backbutton);
+
+                } else {
+                    OpenMainPage();
+                }
             }
         });
 
@@ -76,38 +94,60 @@ public class AppSettingsPage extends AppCompatActivity {
 
     public void changeColorButton(View view)
     {
-
-
-
         String fontSizeText = FonteditText.getText().toString().trim();
         fontSize = Float.parseFloat(fontSizeText);
 
 
-        if (switch1.isChecked())
-        {
-           selectedColor = R.color.blue;
-           Colortext = R.color.black;
-           Colorbutton = R.color.blue2;
+        if (!isSpeaking) {
+            //speakText(AppSettingsButton.getText().toString());
+            handleButtonClick(buttonSubmit.getText().toString(), Backbutton);
+
+        }
+        else {
+            if (switch1.isChecked()) {
+                selectedColor = R.color.blue;
+                Colortext = R.color.black;
+                Colorbutton = R.color.blue2;
 
 
+            } else if (switch2.isChecked()) {
+                selectedColor = R.color.orange;
+                Colortext = R.color.black;
+                Colorbutton = R.color.orange2;
 
 
-        } else if (switch2.isChecked())
-        {
-            selectedColor = R.color.orange;
-            Colortext = R.color.black;
-            Colorbutton = R.color.orange2;
+            } else if (switch3.isChecked()) {
 
+                selectedColor = R.color.white;
+                Colortext = R.color.orange;
+                Colorbutton = R.color.white2;
+            }
 
+            if(fontSizeText.isEmpty())
+            {
+                Toast.makeText(AppSettingsPage.this, "PLease enter a font size", Toast.LENGTH_SHORT).show();
+                buttonSubmit.setEnabled(false);
+            }
+            else {
+                buttonSubmit.setEnabled(true);
+                applySelectedColor(selectedColor, Colortext, Colorbutton, fontSize);
+                SharedPreferences.Editor editor = sp.edit();
 
-        } else if (switch3.isChecked()) {
-
-            selectedColor = R.color.white;
-            Colortext = R.color.orange;
-            Colorbutton = R.color.white2;
+                editor.putInt("selectedColor", selectedColor);
+                editor.putInt("ColorText", Colortext);
+                editor.putInt("Colorbutton", Colorbutton);
+                editor.putFloat("fontSize", fontSize);
+                editor.commit();
+                Toast.makeText(AppSettingsPage.this, "Information Saved.", Toast.LENGTH_LONG).show();
+            }
         }
 
-        applySelectedColor(selectedColor);
+
+
+    }
+    private void applySelectedColor(int selectedColor,  int Colortext, int Colorbutton, float fontSize) {
+        // Apply the selected color to the background
+        settingsXML.setBackgroundColor(getColor(selectedColor));
         Backbutton.setTextSize(fontSize);
         Backbutton.setTextColor(getColor(Colortext));
         Backbutton.setBackgroundColor(getColor(Colorbutton));
@@ -128,28 +168,51 @@ public class AppSettingsPage extends AppCompatActivity {
 
         textview2.setTextSize(fontSize);
         textview2.setTextColor(getColor(Colortext));
-
-        SharedPreferences.Editor editor = sp.edit();
-
-        editor.putInt("selectedColor", selectedColor);
-        editor.putInt("ColorText", Colortext);
-        editor.putInt("Colorbutton", Colorbutton);
-        editor.putFloat("fontSize", fontSize);
-        editor.commit();
-        Toast.makeText(AppSettingsPage.this, "Information Saved.", Toast.LENGTH_LONG).show();
-
-
-
-    }
-    private void applySelectedColor( int colorResId) {
-        // Apply the selected color to the background
-        settingsXML.setBackgroundColor(getColor(colorResId));
     }
 
     public void OpenMainPage()
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void speakText(String text, Button button) {
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+        isSpeaking = true;
+        // Add a delay to ensure the speech is completed before navigating
+        button.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isSpeaking = false;
+            }
+        }, 2000); // Adjust the delay as needed*/
+    }
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            int result = textToSpeech.setLanguage(Locale.getDefault());
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Toast.makeText(this, "Language not supported.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Initialization failed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
+    }
+
+    private void handleButtonClick(String buttonText, Button button) {
+        speakText(buttonText, button);
+
     }
 
 

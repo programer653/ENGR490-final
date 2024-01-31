@@ -19,7 +19,10 @@ import java.util.Locale;
 
 
 // add textto speech
-//when you are clicking on one button, premiere fois ca va enoncer le button puis deuxieme fois ca va cliquer dessus
+//when you are clicking on one button, premiere fois ca va enoncer le button puis deuxieme fois ca va cliquer dessus - done
+// chnage naviagtion page to constraint layout
+// enregistre switch states
+//put app settings page as first page then keep main activity
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     Button AppSettingsButton;
@@ -126,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     public void OpenGpsPage()
     {
-        Intent intent = new Intent(this, GpsNavigationPage2.class);
+        Intent intent = new Intent(this, GpsNavigationPage.class);
         startActivity(intent);
     }
 

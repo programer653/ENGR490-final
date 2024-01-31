@@ -50,7 +50,7 @@ public class GpsNavigationPage2 extends AppCompatActivity implements TextToSpeec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps_navigation_page2);
 
-        gpsxml = findViewById(R.id.gpsXML);
+        gpsxml = findViewById(R.id.gpsXMLL);
         textToSpeech = new TextToSpeech(this, this);
 
 

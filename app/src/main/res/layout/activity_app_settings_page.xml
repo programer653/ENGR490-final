@@ -82,7 +82,6 @@
         android:layout_height="59dp"
         android:ems="10"
         android:inputType="text"
-        android:text="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.92"

@@ -5,12 +5,37 @@
     android:id="@+id/gpsXML"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue"
     tools:context=".GpsNavigationPage">
+
+    <ImageButton
+        android:id="@+id/ttssrc"
+        android:layout_width="71dp"
+        android:layout_height="88dp"
+        android:background="@drawable/tts_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.405" />
+
+    <ImageButton
+        android:id="@+id/ttsdest"
+        android:layout_width="69dp"
+        android:layout_height="83dp"
+        android:background="@drawable/tts_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ttssrc"
+        app:layout_constraintVertical_bias="0.196" />
 
     <Button
         android:id="@+id/Backbutton"
-        android:layout_width="112dp"
-        android:layout_height="62dp"
+        android:layout_width="186dp"
+        android:layout_height="95dp"
         android:backgroundTint="#ABC6F3"
         android:text="back"
         android:textColor="#000000"
@@ -21,6 +46,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
+        app:strokeWidth="3dp" />
+
+    <EditText
+        android:id="@+id/source"
+        android:layout_width="312dp"
+        android:layout_height="72dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="enter source location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ttssrc"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Backbutton"
+        app:layout_constraintVertical_bias="0.311" />
+
+    <EditText
+        android:id="@+id/destination"
+        android:layout_width="312dp"
+        android:layout_height="72dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="enter destination location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ttsdest"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/source"
+        app:layout_constraintVertical_bias="0.21" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="171dp"
+        android:layout_height="92dp"
+        android:backgroundTint="#ABC6F3"
+        android:text="Open Navigation"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/destination"
         app:strokeWidth="3dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
