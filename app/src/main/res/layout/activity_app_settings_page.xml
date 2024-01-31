@@ -10,17 +10,18 @@
 
     <Button
         android:id="@+id/Backbutton"
-        android:layout_width="112dp"
-        android:layout_height="62dp"
+        android:layout_width="146dp"
+        android:layout_height="79dp"
         android:backgroundTint="#ABC6F3"
         android:text="back"
-        android:textSize="10dp"
         android:textColor="#000000"
+        android:textSize="10dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.516"
         app:strokeWidth="3dp" />
 
     <Switch
@@ -91,19 +92,19 @@
 
     <Button
         android:id="@+id/buttonSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="79dp"
         android:backgroundTint="#ABC6F3"
+        android:onClick="changeColorButton"
         android:text="Submit"
-        android:textSize="10dp"
         android:textColor="#000000"
+        android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.906"
-        app:strokeWidth="3dp"
-        android:onClick="changeColorButton"/>
+        app:strokeWidth="3dp" />
 
     <Button
         android:id="@+id/button"

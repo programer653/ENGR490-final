@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,10 +19,11 @@ import androidx.annotation.Nullable;
 
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.os.Bundle;
 
-public class GpsNavigationPage2 extends AppCompatActivity {
+public class GpsNavigationPage2 extends AppCompatActivity implements TextToSpeech.OnInitListener{
 
     protected static final int RESULT_SPEECH = 1;
     private EditText editTextSource;
@@ -38,12 +40,19 @@ public class GpsNavigationPage2 extends AppCompatActivity {
     int Colorbutton = R.color.blue2;
     float fontSize = 10;
 
+    private TextToSpeech textToSpeech;
+    private boolean isSpeaking = false;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps_navigation_page2);
 
         gpsxml = findViewById(R.id.gpsXML);
+        textToSpeech = new TextToSpeech(this, this);
+
 
         sp = getApplicationContext().getSharedPreferences("ColorPref", Context.MODE_PRIVATE);
         selectedColor= sp.getInt("selectedColor", R.color.blue);
@@ -62,16 +71,23 @@ public class GpsNavigationPage2 extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String source = editTextSource.getText().toString();
-            String destination = editTextDestination.getText().toString();
-            if (source.equals("") || destination.equals("")) {
-                Toast.makeText(getApplicationContext(), "Enter both source and destination", Toast.LENGTH_SHORT).show();
+            if (!isSpeaking) {
+                //speakText(AppSettingsButton.getText().toString());
+                handleButtonClick(button.getText().toString(), button);
+
             } else {
-                Uri uri = Uri.parse("https://www.google.com/maps/dir/" + source + "/" + destination);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                intent.setPackage("com.google.android.apps.maps");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+
+                String source = editTextSource.getText().toString();
+                String destination = editTextDestination.getText().toString();
+                if (source.equals("") || destination.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Enter both source and destination", Toast.LENGTH_SHORT).show();
+                } else {
+                    Uri uri = Uri.parse("https://www.google.com/maps/dir/" + source + "/" + destination);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    intent.setPackage("com.google.android.apps.maps");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
             }
         }
     });
@@ -148,5 +164,45 @@ public class GpsNavigationPage2 extends AppCompatActivity {
 
         // chnage the coor button and the font text and the size
     }
+
+    private void speakText(String text, Button button) {
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+        isSpeaking = true;
+        // Add a delay to ensure the speech is completed before navigating
+        button.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isSpeaking = false;
+            }
+        }, 2000); // Adjust the delay as needed*/
+    }
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            int result = textToSpeech.setLanguage(Locale.getDefault());
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Toast.makeText(this, "Language not supported.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Initialization failed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
+    }
+
+    private void handleButtonClick(String buttonText, Button button) {
+        speakText(buttonText, button);
+
+    }
+
 }
 

@@ -10,8 +10,8 @@
 
     <Button
         android:id="@+id/AppSettingButton"
-        android:layout_width="236dp"
-        android:layout_height="100dp"
+        android:layout_width="260dp"
+        android:layout_height="143dp"
         android:backgroundTint="#ABC6F3"
         android:text="App Setting"
         android:textColor="#000000"
@@ -27,8 +27,8 @@
 
     <Button
         android:id="@+id/GpsNavigationButton"
-        android:layout_width="236dp"
-        android:layout_height="101dp"
+        android:layout_width="265dp"
+        android:layout_height="134dp"
         android:backgroundTint="#ABC6F3"
         android:text="GPS navigation"
         android:textColor="#000000"
@@ -44,8 +44,8 @@
 
     <Button
         android:id="@+id/Vibrationbutton"
-        android:layout_width="236dp"
-        android:layout_height="100dp"
+        android:layout_width="263dp"
+        android:layout_height="140dp"
         android:backgroundTint="#ABC6F3"
         android:includeFontPadding="false"
         android:text="Vibration Setting"
@@ -57,7 +57,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.769"
+        app:layout_constraintVertical_bias="0.535"
         app:strokeWidth="3dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

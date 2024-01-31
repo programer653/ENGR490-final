@@ -10,8 +10,8 @@
 
     <Button
         android:id="@+id/Backbutton"
-        android:layout_width="112dp"
-        android:layout_height="62dp"
+        android:layout_width="164dp"
+        android:layout_height="65dp"
         android:backgroundTint="#ABC6F3"
         android:text="back"
         android:textColor="#000000"
@@ -26,30 +26,30 @@
 
     <Switch
         android:id="@+id/VibrationOnSwitch"
-        android:layout_width="231dp"
-        android:layout_height="95dp"
+        android:layout_width="262dp"
+        android:layout_height="104dp"
         android:text="ON/OFF"
         app:layout_constraintBottom_toTopOf="@+id/VibrationLevelTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintVertical_bias="0.578" />
 
     <SeekBar
         android:id="@+id/VibrationseekBar"
-        android:layout_width="297dp"
+        android:layout_width="335dp"
         android:layout_height="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintHorizontal_bias="0.35"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.607" />
+        app:layout_constraintVertical_bias="0.717" />
 
     <TextView
         android:id="@+id/VibrationLevelTextView"
-        android:layout_width="279dp"
-        android:layout_height="35dp"
+        android:layout_width="333dp"
+        android:layout_height="72dp"
         android:text="Level of Vibration"
         app:layout_constraintBottom_toTopOf="@+id/VibrationseekBar"
         app:layout_constraintEnd_toEndOf="parent"

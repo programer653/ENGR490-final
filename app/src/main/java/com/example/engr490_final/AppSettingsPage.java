@@ -63,6 +63,7 @@ public class AppSettingsPage extends AppCompatActivity {
         applySelectedColor(selectedColor);
 
         Backbutton.setOnClickListener(new View.OnClickListener() {
+            // add if font size not chnaged then error
             @Override
             public void onClick(View view) {
                 OpenMainPage();
@@ -75,6 +76,8 @@ public class AppSettingsPage extends AppCompatActivity {
 
     public void changeColorButton(View view)
     {
+
+
 
         String fontSizeText = FonteditText.getText().toString().trim();
         fontSize = Float.parseFloat(fontSizeText);

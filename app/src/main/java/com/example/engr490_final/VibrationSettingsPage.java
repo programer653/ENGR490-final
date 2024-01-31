@@ -7,13 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class VibrationSettingsPage extends AppCompatActivity {
+import java.util.Locale;
+
+public class VibrationSettingsPage extends AppCompatActivity implements TextToSpeech.OnInitListener{
 
     Button Backbutton ;
     Switch VibrationOnSwitch;
@@ -28,10 +32,15 @@ public class VibrationSettingsPage extends AppCompatActivity {
     int Colortext = R.color.black;
     int Colorbutton = R.color.blue2;
     float fontSize = 10;
+
+    private TextToSpeech textToSpeech;
+    private boolean isSpeaking = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vibration_settings_page);
+
+        textToSpeech = new TextToSpeech(this, this);
         vibrationXML = findViewById(R.id.vibrationXML);
 
         Backbutton = findViewById(R.id.Backbutton);
@@ -49,7 +58,13 @@ public class VibrationSettingsPage extends AppCompatActivity {
         Backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OpenMainPage();
+                if (!isSpeaking) {
+                    //speakText(AppSettingsButton.getText().toString());
+                    handleButtonClick(Backbutton.getText().toString(), Backbutton);
+
+                } else {
+                    OpenMainPage();
+                }
             }
         });
 
@@ -80,5 +95,44 @@ public class VibrationSettingsPage extends AppCompatActivity {
 
 
         // chnage the coor button and the font text and the size
+    }
+
+    private void speakText(String text, Button button) {
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+        isSpeaking = true;
+        // Add a delay to ensure the speech is completed before navigating
+        button.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isSpeaking = false;
+            }
+        }, 2000); // Adjust the delay as needed*/
+    }
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            int result = textToSpeech.setLanguage(Locale.getDefault());
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Toast.makeText(this, "Language not supported.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Initialization failed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
+    }
+
+    private void handleButtonClick(String buttonText, Button button) {
+        speakText(buttonText, button);
+
     }
 }
