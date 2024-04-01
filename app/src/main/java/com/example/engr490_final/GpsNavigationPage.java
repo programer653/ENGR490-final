@@ -42,7 +42,7 @@ public class GpsNavigationPage extends AppCompatActivity implements TextToSpeech
     int selectedColor = R.color.blue;
     int Colortext = R.color.black;
     int Colorbutton = R.color.blue2;
-    float fontSize = 10;
+    float fontSize = 20;
 
     private TextToSpeech textToSpeech;
     private boolean isSpeaking = false;

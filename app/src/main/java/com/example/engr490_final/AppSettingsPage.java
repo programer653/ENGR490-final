@@ -30,7 +30,7 @@ public class AppSettingsPage extends AppCompatActivity implements TextToSpeech.O
     int selectedColor = R.color.blue;
     int Colortext = R.color.black;
     int Colorbutton = R.color.blue2;
-    float fontSize = 10;
+    float fontSize = 20;
 
     Switch switch1;
     Switch switch2 ;
@@ -41,7 +41,7 @@ public class AppSettingsPage extends AppCompatActivity implements TextToSpeech.O
     EditText FonteditText ;
 
     TextView textview2;
-     SharedPreferences sp;
+    SharedPreferences sp;
 
     private TextToSpeech textToSpeech;
     private boolean isSpeaking = false;
@@ -64,6 +64,7 @@ public class AppSettingsPage extends AppCompatActivity implements TextToSpeech.O
         FonteditText = findViewById(R.id.FontEditText);
         textview2 = findViewById(R.id.textView2);
 
+
         // Initialize SharedPreference
         sp = getSharedPreferences("ColorPref", Context.MODE_PRIVATE);
 
@@ -71,6 +72,9 @@ public class AppSettingsPage extends AppCompatActivity implements TextToSpeech.O
         Colortext = sp.getInt("ColorText", R.color.black);
         Colorbutton = sp.getInt("Colorbutton", R.color.blue2);
         fontSize = sp.getFloat("fontSize", 10);
+        switch1.setChecked(sp.getBoolean("switch1", false));
+        switch2.setChecked(sp.getBoolean("switch2", false));
+        switch3.setChecked(sp.getBoolean("switch3", false));
 
         applySelectedColor(selectedColor, Colortext, Colorbutton, fontSize);
 
@@ -95,6 +99,13 @@ public class AppSettingsPage extends AppCompatActivity implements TextToSpeech.O
     public void changeColorButton(View view)
     {
         String fontSizeText = FonteditText.getText().toString().trim();
+
+        // Check if font size text is empty
+        if (TextUtils.isEmpty(fontSizeText)) {
+            // Display an error message and return
+            Toast.makeText(AppSettingsPage.this, "Please enter a font size", Toast.LENGTH_SHORT).show();
+            return;
+        }
         fontSize = Float.parseFloat(fontSizeText);
 
 
@@ -123,12 +134,14 @@ public class AppSettingsPage extends AppCompatActivity implements TextToSpeech.O
                 Colorbutton = R.color.white2;
             }
 
-            if(fontSizeText.isEmpty())
-            {
-                Toast.makeText(AppSettingsPage.this, "PLease enter a font size", Toast.LENGTH_SHORT).show();
-                buttonSubmit.setEnabled(false);
-            }
-            else {
+            //if(fontSizeText.isEmpty())
+            //{
+            //    fontSize = 10;
+
+            //    Toast.makeText(AppSettingsPage.this, "PLease enter a font size", Toast.LENGTH_SHORT).show();
+            //    buttonSubmit.setEnabled(false);
+            //}
+            //else {
                 buttonSubmit.setEnabled(true);
                 applySelectedColor(selectedColor, Colortext, Colorbutton, fontSize);
                 SharedPreferences.Editor editor = sp.edit();
@@ -137,9 +150,14 @@ public class AppSettingsPage extends AppCompatActivity implements TextToSpeech.O
                 editor.putInt("ColorText", Colortext);
                 editor.putInt("Colorbutton", Colorbutton);
                 editor.putFloat("fontSize", fontSize);
+
+            editor.putBoolean("switch1", switch1.isChecked());
+            editor.putBoolean("switch2", switch2.isChecked());
+            editor.putBoolean("switch3", switch3.isChecked());
+
                 editor.commit();
                 Toast.makeText(AppSettingsPage.this, "Information Saved.", Toast.LENGTH_LONG).show();
-            }
+            //}
         }
 
 
